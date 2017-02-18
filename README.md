@@ -1,3 +1,6 @@
+Contributers:
+Solomon Mori
+
 # Bouncer
 *You don't belong here*
 
@@ -6,3 +9,6 @@ Bouncer is a host-based intrusion detection system designed to monitor informati
 
 Requirements
 ============
+
+
+
