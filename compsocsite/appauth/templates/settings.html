@@ -1,0 +1,40 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+<br />
+<div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Settings</div>
+            <div class="list-group">
+                <a href="{% url 'appauth:settings' %}" class="list-group-item active">Profile</a>
+                <a href="{% url 'appauth:passwordpage' %}" class="list-group-item">Account</a>
+                <a href="{% url 'appauth:globalSettings' %}" class="list-group-item">Global</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">Profile Settings</div>
+            <div class="panel-body">
+            <form method="post" action="{% url 'appauth:updateSettings' %}">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <label for="first_name">First Name (Optional)</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ request.user.first_name }}">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="last_name">Last Name (Optional)</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ request.user.last_name }}">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" value="{{ request.user.email }}">
+                </fieldset>
+                <input type="submit" class="btn btn-success" value="Save Changes" style='font-size:60%'>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
