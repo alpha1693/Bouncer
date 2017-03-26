@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.views.debug import default_urlconf
-from Bouncer.views import hello
+from Bouncer import views
 
 urlpatterns = [
 url(r'^admin/', admin.site.urls),
     url(r'^$', default_urlconf),
-    url(r'^hello/$', hello),
+    url(r'^hello/$', views.hello),
+    url(r'^simple/$', views.simple_upload, name='simple_upload'),
 ]
