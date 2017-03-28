@@ -67,6 +67,10 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = (
+    "Bouncer/templates"
+)
+
 WSGI_APPLICATION = 'Bouncer.wsgi.application'
 
 
