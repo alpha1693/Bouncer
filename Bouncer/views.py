@@ -4,10 +4,13 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 def simple_upload(request):
-    error = ""
-    uploaded_file_url = ""
-    if len(request.FILES) == 0:
+
+    if request.method == 'POST' and len(request.FILES) == 0:
         error = "No file uploaded\n"
+         
+        return render(request, 'templates/simple_upload.html', {
+            'error' : error
+        })
 
 
     elif request.method == 'POST' and request.FILES['myfile']:
@@ -18,10 +21,10 @@ def simple_upload(request):
         uploaded_file_url = fs.url(filename)
         
 
-    return render(request, 'templates/simple_upload.html', {
+        return render(request, 'templates/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url,
             'error' : error
-    })
+        })
     return render(request, 'templates/simple_upload.html')
 
 def home(request):
