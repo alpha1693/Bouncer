@@ -17,10 +17,13 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.views.debug import default_urlconf
 from Bouncer import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
 url(r'^admin/', admin.site.urls),
     url(r'^$', default_urlconf),
     url(r'^hello/$', views.hello),
     url(r'^simple/$', views.simple_upload, name='simple_upload'),
-]
+    url(r'^home/$', views.home, name='home'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
