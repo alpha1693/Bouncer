@@ -1,6 +1,8 @@
 from django.db import models, transaction
 import re
 
+
+# class to store Apache log files using Common Log Format
 class ParsedLog(models.Model):
 	ip_address = models.CharField(max_length=39)
 	rfc_id = models.CharField(max_length=39)
@@ -19,9 +21,7 @@ class ParsedLog(models.Model):
 		return tokens
 
 	def __init__(self, log):
-		#define regex for Apache log file using Common Log Format
 		regex = '([(\d\.)]+) ([A-Za-z\-]+) ([A-Za-z\-]+) \[(.*?)\] "(.*?)" (\d+|-) (\d+|-)'
-		
 		tokens = self.parse_line(log, regex)
 
 		self.ip_address = tokens[0]
