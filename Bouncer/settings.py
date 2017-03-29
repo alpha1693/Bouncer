@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-
+import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -67,9 +67,10 @@ TEMPLATES = [
     },
 ]
 
-TEMPLATE_DIRS = (
-    "Bouncer/templates"
-)
+if sys.platform == 'linux2':
+    TEMPLATE_DIRS = (
+        "Bouncer/templates"
+    )
 
 WSGI_APPLICATION = 'Bouncer.wsgi.application'
 
