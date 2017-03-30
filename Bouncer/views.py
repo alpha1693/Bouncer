@@ -23,7 +23,7 @@ def simple_upload(request):
 
         return render(request, 'templates/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url,
-            'error' : error
+            
         })
     return render(request, 'templates/simple_upload.html')
 
