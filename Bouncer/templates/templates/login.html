@@ -4,11 +4,13 @@
 <form method="post">
 {% csrf_token %}
 <p> Email </p>
-<input type="email" name="email">
+<input type="email" name="email" placeholder="Email">
 <p>Password</p>
-<input type="password" name="password">
+<input type="password" name="password" placeholder="Password">
 <button type="submit">login</button>
 </form>
+
+<p><a href="/register/">Register</a></p>
 
 {% if debug %}
 <p> {{debug}} </p>

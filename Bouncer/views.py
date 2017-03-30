@@ -5,6 +5,11 @@ from django.core.files.storage import FileSystemStorage
 
 from .models import *
 
+def register(request):
+    return render(request, 'templates/register.html')
+
+
+
 def simple_upload(request):
 
     if request.method == 'POST' and len(request.FILES) == 0:

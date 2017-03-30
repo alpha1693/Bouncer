@@ -3,10 +3,9 @@
 {% block content %}
 <form method="post">
 {% csrf_token %}
-<input type="email" name="email">
-<input type="text" name="username">
-<input type="password" name="password">
-<input type="password" name="password_confirmation">
+<input type="email" name="email" placeholder="Email">
+<input type="password" name="password" placeholder="Password">
+<input type="password" name="password_confirmation" placeholder="Confirm Password">
 <button type="submit">Register</button>
 </form>
 <li><a href="/register">Register</a></li>
