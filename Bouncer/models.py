@@ -4,7 +4,8 @@ import re
 
 class Login(models.Model):
 	email = models.EmailField()
-	password = models.CharField(max_length = 40)
+	password = models.CharField(max_length = 40);
+
 
 
 
