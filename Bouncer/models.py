@@ -21,15 +21,17 @@ class ParsedLog(models.Model):
 	def __str__(self):
 		return self.request_line
 
-	def parse_line(self, line, regex):
-		line = line.strip()
-		tokens = re.match(regex, line).groups()
-		return tokens
-
-	def __init__(self, log):
+	def parse_line(self, line):
 		regex = '([(\d\.)]+) ([A-Za-z\-]+) ([A-Za-z\-]+) \[(.*?)\] "(.*?)" (\d+|-) (\d+|-)'
-		tokens = self.parse_line(log, regex)
+		line = line.strip()
+		match_obj = re.match(regex, line)
+		if match_obj == None:
+			return None
+		else:
+			tokens = match_obj.groups()
+			return tokens
 
+	def __init__(self, tokens):
 		self.ip_address = tokens[0]
 		self.rfc_id = tokens[1]
 		self.user_id = tokens[2]
