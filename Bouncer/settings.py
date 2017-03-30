@@ -83,19 +83,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'djangostack',
-        'HOST': '',
+        'HOST': 'localhost',
         'PORT': '5432',
-        'USER': 'bitnami',
-        'PASSWORD': '19a9c9d98e'
+        'USER': 'postgres',
+        'PASSWORD': ''
     }
 }
 
-EXAMPLE_DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
 
 # Password validation

@@ -8,10 +8,7 @@
 <body>
     <div id="header">
     {% block header %}
-    <!--
-    {% load static %}
-    <img src="{% static "bouncer/banner.jpg" %}" alt="Bouncers observe"/>
-    -->
+    {% include "./header.html" %}
     {% endblock %}
     </div>
 
