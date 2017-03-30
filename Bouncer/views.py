@@ -25,7 +25,7 @@ def simple_upload(request):
         log_file = myfile.chunks()
         parsed_logs = []
         for line in log_file:
-            tokens = ParsedLog.parse_line(line)
+            tokens = parse_line(line)
             if tokens == None:
                 continue
             else:

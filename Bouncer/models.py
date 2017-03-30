@@ -21,16 +21,6 @@ class ParsedLog(models.Model):
 	def __str__(self):
 		return self.request_line
 
-	def parse_line(self, line):
-		regex = '([(\d\.)]+) ([A-Za-z\-]+) ([A-Za-z\-]+) \[(.*?)\] "(.*?)" (\d+|-) (\d+|-)'
-		line = line.strip()
-		match_obj = re.match(regex, line)
-		if match_obj == None:
-			return None
-		else:
-			tokens = match_obj.groups()
-			return tokens
-
 	def __init__(self, tokens):
 		self.ip_address = tokens[0]
 		self.rfc_id = tokens[1]
@@ -39,3 +29,14 @@ class ParsedLog(models.Model):
 		self.request_line = tokens[4]
 		self.http_status = tokens[5]
 		self.num_bytes = tokens[6]
+
+
+def parse_line(self, line):
+	regex = '([(\d\.)]+) ([A-Za-z\-]+) ([A-Za-z\-]+) \[(.*?)\] "(.*?)" (\d+|-) (\d+|-)'
+	line = line.strip()
+	match_obj = re.match(regex, line)
+	if match_obj == None:
+		return None
+	else:
+		tokens = match_obj.groups()
+		return tokens
