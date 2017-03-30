@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'djangostack',
         'HOST': 'localhost',
         'PORT': '5432',
-        'USER': 'postgres',
+        'USER': 'bitnami',
         'PASSWORD': ''
     }
 }
