@@ -32,7 +32,7 @@ class ParsedLog(models.Model):
 		self.num_bytes = tokens[6]
 
 
-def parse_line(self, line):
+def parse_line(line):
 	regex = '([(\d\.)]+) ([A-Za-z\-]+) ([A-Za-z\-]+) \[(.*?)\] "(.*?)" (\d+|-) (\d+|-)'
 	line = line.strip()
 	match_obj = re.match(regex, line)
