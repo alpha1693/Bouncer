@@ -1,10 +1,16 @@
 from django.db import models, transaction
 import re
+from django.contrib.auth.models import User
+
 
 
 class Login(models.Model):
 	email = models.EmailField()
-	password = models.CharField(max_length = 40);
+	password = models.CharField(max_length = 40)
+
+
+
+
 
 
 
