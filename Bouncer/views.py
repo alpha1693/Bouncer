@@ -52,6 +52,10 @@ def simple_upload(request):
         uploaded_file_url = fs.url(filename)
         context['uploaded_file_url'] = uploaded_file_url
 
+        # new thread to parse log file and store in DB
+        parser_thread = LogParserThread(uploaded_file_url)
+        parser_thread.start()
+
         return render(request, 'templates/simple_upload.html', context)
 
     return render(request, 'templates/simple_upload.html')
