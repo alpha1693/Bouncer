@@ -26,7 +26,7 @@ def register(request):
        
     else :
 
-        return render(request, 'templates/login.html')
+        return render(request, 'templates/register.html')
 
 
 
