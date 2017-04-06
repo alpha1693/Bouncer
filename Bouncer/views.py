@@ -2,37 +2,22 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-
 from .models import *
+from .forms import *
 
 def register(request):
     
     if request.method == 'POST':
         context = request.POST.dict()
-
-        if(context["email"] != "" and context["password"] != "" and context["password_confirmation"] != ""):
-
-
-
-            return render(request, 'templates/login.html', context)
-
-        else:
-            context['error'] = "Must supply email and password"
-
-
-            return render(request, 'templates/login.html', context)
-
-
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            context['form'] = form
+            return render(request, 'templates/register.html', context)
        
     else :
 
-        return render(request, 'templates/login.html')
-
-
-
-
-
-    return render(request, 'templates/register.html')
+        form = RegisterForm()
+        return render(request, 'templates/register.html', {'form': form})
 
 
 
@@ -60,21 +45,15 @@ def simple_upload(request):
 def login(request):
     if request.method == 'POST':
         context = request.POST.dict()
-
-        if(context["email"] != "" and context["password"] != ""):
-
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            context['form'] = form
             return render(request, 'templates/login.html', context)
-
-        else:
-
-            context['error'] = "Must supply email and password"
-
-            return render(request, 'templates/login.html', context)
-
-
        
     else :
-        return render(request, 'templates/login.html')
+        form = LoginForm()
+
+    return render(request, 'templates/login.html', {'form': form})
 
 def changepassword(request):
     return render(request, 'templates/changepassword.html')

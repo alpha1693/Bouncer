@@ -3,10 +3,7 @@
 {% block content %}
 <form method="post">
 {% csrf_token %}
-<p> Email </p>
-<input type="email" name="email" placeholder="Email">
-<p>Password</p>
-<input type="password" name="password" placeholder="Password">
+{{form}}
 <button type="submit">login</button>
 </form>
 
