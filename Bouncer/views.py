@@ -19,7 +19,6 @@ def simple_upload(request):
             'error' : error
         })
 
-
     elif request.method == 'POST' and request.FILES['myfile']:
         #needs error checks
         myfile = request.FILES['myfile']
@@ -27,11 +26,10 @@ def simple_upload(request):
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         
-
         return render(request, 'templates/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url,
-            
         })
+        
     return render(request, 'templates/simple_upload.html')
 
 
