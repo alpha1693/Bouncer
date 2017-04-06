@@ -58,6 +58,8 @@ def login(request):
     else :
         return render(request, 'templates/login.html')
 
+def changepassword(request):
+    return render(request, 'templates/changepassword.html')
 
 def hello(request):
     return HttpResponse("Hello world")
