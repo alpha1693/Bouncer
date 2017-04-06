@@ -21,6 +21,7 @@ def register(request):
 
 
 
+
 def simple_upload(request):
     context = {}
     if request.method == 'POST' and len(request.FILES) == 0:
@@ -56,7 +57,33 @@ def login(request):
     return render(request, 'templates/login.html', {'form': form})
 
 def changepassword(request):
-    return render(request, 'templates/changepassword.html')
+    if request.method == 'POST':
+        
+
+
+        POST_dict = request.POST.dict()
+        email = POST_dict["email"]
+        password = POST_dict["password"]
+
+        if(email != "" and password != ""):
+
+            return render(request, 'templates/login.html', {
+                'email' :  email,
+                'password' :  password
+
+        })
+
+        else:
+
+            return render(request, 'templates/changepassword.html', {
+            'error' : "Must supply email and password"
+            })
+
+
+
+        
+    else:
+        return render(request, 'templates/changepassword.html')
 
 def hello(request):
     return HttpResponse("Hello world")
