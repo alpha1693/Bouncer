@@ -27,4 +27,5 @@ url(r'^admin/', admin.site.urls),
     url(r'^simple/$', views.simple_upload, name='simple_upload'),
     url(r'^register/$', views.register, name='register'),
     url(r'^$', views.login, name='login'),
+    url(r'^changepassword/$', views.changepassword, name='changepassword'),
 ]

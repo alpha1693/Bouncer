@@ -63,3 +63,6 @@ def login(request):
 
 def hello(request):
     return HttpResponse("Hello world")
+
+def changepassword(request):
+    return render(request, 'templates/changepassword.html')
