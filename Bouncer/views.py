@@ -44,7 +44,6 @@ def simple_upload(request):
          
         return render(request, 'templates/simple_upload.html', context)
 
-
     elif request.method == 'POST' and request.FILES['myfile']:
         #needs error checks
         myfile = request.FILES['myfile']
@@ -54,6 +53,7 @@ def simple_upload(request):
         context['uploaded_file_url'] = uploaded_file_url
 
         return render(request, 'templates/simple_upload.html', context)
+
     return render(request, 'templates/simple_upload.html')
 
 
@@ -76,6 +76,8 @@ def login(request):
     else :
         return render(request, 'templates/login.html')
 
+def changepassword(request):
+    return render(request, 'templates/changepassword.html')
 
 def hello(request):
     return HttpResponse("Hello world")
