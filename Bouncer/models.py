@@ -2,11 +2,9 @@ from django.db import models, transaction
 import re
 
 
-class Login(models.Model):
+class User(models.Model):
 	email = models.EmailField()
-	password = models.CharField(max_length = 40);
-
-
+	password = models.CharField(max_length = 40)
 
 
 # class to store Apache log files using Common Log Format
