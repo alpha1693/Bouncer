@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
 from .models import *
+from .services import *
 
 def register(request):
     
@@ -52,9 +53,20 @@ def simple_upload(request):
         uploaded_file_url = fs.url(filename)
         context['uploaded_file_url'] = uploaded_file_url
 
-        # new thread to parse log file and store in DB
-        parser_thread = LogParserThread(uploaded_file_url)
-        parser_thread.start()
+        myfile.seek(0)
+        parsed_logs = []
+        log_file = myfile.read()
+
+        # Create ParsedLog object for each line in log file
+        for line in log_file.splitlines():
+            tokens = parse_line(line)
+            # parse_line returns None if regex fails to match
+            if tokens != None:
+                parsed_log = ParsedLog(ip_address = tokens[0],rfc_id = tokens[1],user_id = tokens[2],date_time = tokens[3],request_line = tokens[4],http_status = tokens[5],num_bytes = tokens[6])
+                parsed_logs.append(parsed_log)
+        # Bulk insert into database
+        ParsedLog.objects.bulk_create(parsed_logs)
+
 
         return render(request, 'templates/simple_upload.html', context)
 

@@ -1,1 +1,6 @@
 Bouncer/*.pyc
+Bouncer/migrations/
+Bouncer/__init__.pyc
+Bouncer/settings.pyc
+Bouncer/urls.pyc
+*.txt

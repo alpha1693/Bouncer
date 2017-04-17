@@ -70,11 +70,6 @@ TEMPLATES = [
     },
 ]
 
-if sys.platform == 'linux2':
-    TEMPLATE_DIRS = (
-        "Bouncer/templates", "Bouncer/templates/templates"
-    )
-
 WSGI_APPLICATION = 'Bouncer.wsgi.application'
 
 
