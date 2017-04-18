@@ -4,8 +4,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 desired_drivers = []
-desired_drivers.append("webdriver.Chrome('../selenium_browser_drivers/chromedriver_win32/chromedriver.exe')")
-desired_drivers.append("webdriver.Firefox(firefox_binary=binary)")
+desired_drivers.append("webdriver.Chrome('/usr/bin/chromedriver')")
+# desired_drivers.append("webdriver.Firefox('/usr/bin/geckodriver')")
 
 
 class current_test_case(unittest.TestCase):
@@ -20,16 +20,26 @@ class current_test_case(unittest.TestCase):
 			self.driver = eval(driver_instance)
 
 
-       		
+
 	def tearDown(self):
 		self.driver.quit()
-		print("quit " + self.driver )
+		print("quit " + str(self.driver) )
 
 
 	def testExample(self):
 		self.driver.get("http://www.google.com/")
 		print("got the googs\n")
 		print(self.driver.title)
+
+	def testLogUpload(self):
+
+		self.driver.get('http://127.0.0.1:8000/simple')
+		file_path = '../testlog.txt'
+		element = self.driver.find_element_by_id('myfile')
+		element.send_keys(file_path)
+
+		# validate...
+
 
 if __name__ == '__main__':
     unittest.main()
