@@ -1,11 +1,16 @@
 import unittest
+from django.test import Client
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 desired_drivers = []
-desired_drivers.append("webdriver.Chrome('/usr/bin/chromedriver')")
-# desired_drivers.append("webdriver.Firefox('/usr/bin/geckodriver')")
+if sys.platform == 'linux2':
+	desired_drivers.append("webdriver.Chrome('/usr/bin/chromedriver')")
+	# desired_drivers.append("webdriver.Firefox('/usr/bin/geckodriver')")
+
+elif sys.platform == 'win32':
+	desired_drivers.append("webdriver.Chrome('../selenium_browser_drivers/chromedriver_win32/chromedriver.exe')")
 
 
 class current_test_case(unittest.TestCase):
@@ -32,7 +37,6 @@ class current_test_case(unittest.TestCase):
 		print(self.driver.title)
 
 	def testLogUpload(self):
-
 		self.driver.get('http://127.0.0.1:8000/simple')
 		file_path = '../testlog.txt'
 		element = self.driver.find_element_by_id('myfile')
@@ -43,4 +47,3 @@ class current_test_case(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
