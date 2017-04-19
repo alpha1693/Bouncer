@@ -3,6 +3,7 @@ from settings import *
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+import sys
 
 desired_drivers = []
 if sys.platform == 'linux2':
@@ -10,8 +11,8 @@ if sys.platform == 'linux2':
 	# desired_drivers.append("webdriver.Firefox(firefox_binary=binary)")
 
 elif sys.platform == 'win32':
-	desired_drivers.append("webdriver.Chrome('../selenium_browser_drivers/chromedriver_win32/chromedriver.exe')")
-	# desired_drivers.append("webdriver.Firefox(firefox_binary=binary)")
+	desired_drivers.append("webdriver.Chrome('../selenium_browser_drivers/chromedriver.exe')")
+	desired_drivers.append("webdriver.Firefox()")
 
 class current_test_case(unittest.TestCase):
 
@@ -19,8 +20,6 @@ class current_test_case(unittest.TestCase):
 
 	def setUp(self):
 		for driver_instance in desired_drivers:
-			if driver_instance == "webdriver.Firefox(firefox_binary=binary)":
-				binary = FirefoxBinary(r'../selenium_browser_drivers/geckodriver-v0.15.0-win64/geckodriver.exe')
 
 			self.driver = eval(driver_instance)
 
