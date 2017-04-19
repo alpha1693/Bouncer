@@ -34,7 +34,6 @@ def register(request):
             # Hash the password with the set_password method
             user.set_password(user.password)
             user.save()
-            
             # Update our variable to tell the template registration was successful.
             registered = True
             return HttpResponse("Please check your email for a verification link for your account.")
@@ -102,21 +101,6 @@ def updateSettings(request):
         request.user.last_name = last_name
         request.user.email = updatedEmail
         request.user.save()
-    if request.method == 'POST':
-        displayChoice = request.POST['viewpreferences']
-        if displayChoice == "allpermit":
-            request.user.userprofile.displayPref = 1
-        elif displayChoice == "voternames":
-            request.user.userprofile.displayPref = 2
-        elif displayChoice == "justnumber":
-            request.user.userprofile.displayPref = 3
-        else:
-            request.user.userprofile.displayPref = 4
-        request.user.userprofile.emailInvite = request.POST.get('emailInvite') == 'email'
-        request.user.userprofile.emailDelete = request.POST.get('emailDelete') == 'email'
-        request.user.userprofile.emailStart = request.POST.get('emailStart') == 'email'
-        request.user.userprofile.emailStop = request.POST.get('emailStop') == 'email'
-        request.user.userprofile.save()
 	
     return HttpResponseRedirect(reverse('appauth:settings'))    
 
