@@ -34,10 +34,11 @@ class current_test_case(unittest.TestCase):
 		element = self.driver.find_element_by_id('myfile')
 		element.send_keys(file_path)
 		element.submit()
-		time.sleep(1)
 		element = self.driver.find_element_by_id('post_msg')
 		regex = 'File \w+\.txt uploaded'
 		self.assertTrue(re.match(regex, element.text))
+
+
 
 if __name__ == '__main__':
     unittest.main()

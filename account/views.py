@@ -20,5 +20,4 @@ class MainView(generic.ListView):
     context_object_name = 'log_list'
 
     def get_queryset(self):
-        return Log.objects.all().order_by('-pub_date')
-
+        return ParsedLog.objects.all().order_by('-pub_date')

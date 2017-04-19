@@ -12,7 +12,8 @@ from django.contrib.auth.models import User
 @python_2_unicode_compatible
 # class to store Apache log files using Common Log Format
 class ParsedLog(models.Model):
-    owner = models.ForeignKey(User, null = True)
+	owner = models.ForeignKey(User, null=True)
+	pub_date = models.DateTimeField(auto_now_add=True, blank=True)
 	ip_address = models.CharField(max_length=39)
 	rfc_id = models.CharField(max_length=39)
 	user_id = models.CharField(max_length=39)
@@ -21,5 +22,5 @@ class ParsedLog(models.Model):
 	http_status = models.CharField(max_length=3)
 	num_bytes = models.IntegerField(blank=True)
 
-    def __str__(self):
-        return self.request_line
+	def __str__(self):
+		return self.request_line
