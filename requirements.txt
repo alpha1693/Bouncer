@@ -1,0 +1,7 @@
+coverage>=4.3.4
+Django>=1.10.6
+mod-wsgi>=4.5.15
+pep8>=1.7.0
+psycopg2>=2.7.1
+selenium>=3.3.3
+six>=1.10.0
