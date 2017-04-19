@@ -16,12 +16,25 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 def forgot_password(request):
-
-
-
-
-    return render(request, 'forgotpassword.html', {})
-
+    # If it's a HTTP POST, we'll process the form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        form = forgotPasswordForm(request.POST)
+        username = request.POST['username']
+        email = request.POST['email']
+        if form.is_valid():
+            print('form is good')
+            user = User.objects.filter(username = username, email = email)
+            if user:
+                return HttpResponse("Please check your email to reset your password.")
+            
+            else:
+                return render(request, 'forgotpassword.html', {'error' : 'Username and/or Email were not found. Please try again.'})
+            
+        else:
+            return render(request, 'forgotpassword.html', {'error' : 'Credentials not valid. Please try again.'})
+    else:
+        return render(request, 'forgotpassword.html', {})
 
 def register(request):
     
@@ -32,7 +45,6 @@ def register(request):
         # Attempt to grab information from the raw form information.
 
         user_form = UserForm(data=request.POST)
-        print(user_form.is_valid())
         # If the form is valid...
         if user_form.is_valid():
             # Save the user's form data to the database.

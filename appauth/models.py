@@ -24,7 +24,7 @@ class UserProfile(models.Model):
 #------------------------------------------------------------------------------------
 #Django Forms abstractions
 
-class forgotPasswordForm(forms.ModelForm):
+class forgotPasswordForm(forms.Form):
     username = forms.CharField(max_length = 15,  label = "username",)
 
     email = forms.EmailField(
