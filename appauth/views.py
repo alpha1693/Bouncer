@@ -15,6 +15,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
+def forgot_password(request):
+
+    return render(request, 'forgotpassword.html', {})
+
+
 def register(request):
     
     registered = False
