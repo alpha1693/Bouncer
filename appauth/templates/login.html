@@ -46,9 +46,14 @@ window.location = "{% url 'account:main' %}";
 
 {% endif %}
 
+
+
     <div class="col-md-4 col-md-offset-4" align="center">
         <h3 >Login to Bouncer</h3>
-        <br/>
+        {% if error %}
+        <p> {{error}} </p>
+        {% endif %}
+        <br/> <!-- This is bad, breaks should be done in css -->
         <form id="login_form" method="post" action="/auth/login/">
             {% csrf_token %}
             <fieldset class="form-group">

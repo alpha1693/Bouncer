@@ -63,7 +63,8 @@ def user_login(request):
             return HttpResponse("Your account is disabled.")
         else:
             print ("Invalid login details")
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, 'login.html', {'error': 'Invalid login details. Please try again.'})
+
 	
 # Display the login form.
     else:
