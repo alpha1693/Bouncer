@@ -17,6 +17,9 @@ from django.core.validators import validate_email
 
 def forgot_password(request):
 
+
+
+
     return render(request, 'forgotpassword.html', {})
 
 
@@ -24,14 +27,13 @@ def register(request):
     
     registered = False
     
-    # If it's a HTTP POST, we're interested in processing form data.
+    # If it's a HTTP POST, we'll process the form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
-        # Note that we make use of both UserForm and UserProfileForm.
 
         user_form = UserForm(data=request.POST)
         print(user_form.is_valid())
-        # If the two forms are valid...
+        # If the form is valid...
         if user_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
@@ -47,7 +49,7 @@ def register(request):
         else:
             return render(request, 'register.html', {'error': 'Registration credentials are not valid. Please try again.' , 'user_form': user_form, 'registered': registered})
 
-# Not a HTTP POST, so we render our form using two ModelForm instances.
+# Not a HTTP POST, so we render our form using our ModelForm instance.
 # These forms will be blank, ready for user input.
     else:
         user_form = UserForm()
@@ -55,8 +57,9 @@ def register(request):
  
 
 def user_login(request):
-   
+    # If it's a HTTP POST, we'll process the form data.
     if request.method == 'POST':
+        #grab information from the raw form information.
         username = request.POST['username']
         password = request.POST['password']
         
@@ -69,7 +72,6 @@ def user_login(request):
                 return HttpResponseRedirect(reverse('account:main'))
             return HttpResponse("Your account is disabled.")
         else:
-            print ("Invalid login details")
             return render(request, 'login.html', {'error': 'Invalid login details. Please try again.'})
 
 	
@@ -78,19 +80,20 @@ def user_login(request):
         return render(request, 'login.html', {})
 
 
-@login_required
+@login_required #Django enforced authentication control
 def displaySettings(request):
     
     return render(request, 'settings.html', {})
 
-@login_required
+@login_required #Django enforced authentication control
 def changePasswordView(request):
     return render(request, 'changepassword.html', {})
 
-@login_required
+@login_required #Django enforced authentication control
 def updateSettings(request):
-    
+    # If it's a HTTP POST, we'll process the form data.
     if request.method == 'POST':
+          #grab information from the raw form information.
         updatedEmail = request.POST['email']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
