@@ -23,8 +23,9 @@ def register(request):
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
+
         user_form = UserForm(data=request.POST)
- 
+        print(user_form.is_valid())
         # If the two forms are valid...
         if user_form.is_valid():
             # Save the user's form data to the database.
@@ -33,12 +34,14 @@ def register(request):
             # Hash the password with the set_password method
             user.set_password(user.password)
             user.save()
-            profile = UserProfile(user=user, displayPref = 1)
-            profile.save()
+            
             # Update our variable to tell the template registration was successful.
             registered = True
+            return HttpResponse("Please check your email for a verification link for your account.")
 
-        #else    print (user_form.errors)
+
+        else:
+            return render(request, 'register.html', {'error': 'Registration credentials are not valid. Please try again.' , 'user_form': user_form, 'registered': registered})
 
 # Not a HTTP POST, so we render our form using two ModelForm instances.
 # These forms will be blank, ready for user input.

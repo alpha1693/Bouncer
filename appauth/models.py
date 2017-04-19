@@ -20,7 +20,14 @@ class UserProfile(models.Model):
         return self.user.username
     
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput(), max_length = 20,  label = "password",)
+
+    username = forms.CharField(max_length = 15,  label = "username",)
+
+    email = forms.EmailField(
+        max_length = 20,
+        label="email",
+    )
 
     class Meta:
         model = User
