@@ -23,7 +23,7 @@ def forgot_password(request):
         username = request.POST['username']
         email = request.POST['email']
         if form.is_valid():
-            print('form is good')
+            #See if we have that user in the db
             user = User.objects.filter(username = username, email = email)
             if user:
                 return HttpResponse("Please check your email to reset your password.")

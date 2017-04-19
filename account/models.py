@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 # Models
 
-# question that will receive responses
+# 
 @python_2_unicode_compatible
 class Log(models.Model):
     log_text = models.CharField(max_length=200)
