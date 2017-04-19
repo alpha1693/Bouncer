@@ -16,7 +16,6 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 
 def register(request):
-    context = RequestContext(request)
     
     registered = False
     
@@ -45,15 +44,11 @@ def register(request):
 # These forms will be blank, ready for user input.
     else:
         user_form = UserForm()
-
-    return render_to_response(
-                              'register.html',
-                              {'user_form': user_form, 'registered': registered},
-                              context)
+    return render(request, 'register.html', {'user_form': user_form, 'registered': registered})
+ 
 
 def user_login(request):
-    context = RequestContext(request)
-    
+   
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -72,22 +67,20 @@ def user_login(request):
 	
 # Display the login form.
     else:
-        return render_to_response('login.html', {}, context)
+        return render(request, 'login.html', {})
 
 
 @login_required
 def displaySettings(request):
-    context = RequestContext(request)
-    return render_to_response('settings.html', {}, context)
+    
+    return render(request, 'settings.html', {})
 
 @login_required
 def changePasswordView(request):
-    context = RequestContext(request)
-    return render_to_response('changepassword.html', {}, context)
+    return render(request, 'changepassword.html', {})
 
 @login_required
 def updateSettings(request):
-    context = RequestContext(request)
     
     if request.method == 'POST':
         updatedEmail = request.POST['email']
