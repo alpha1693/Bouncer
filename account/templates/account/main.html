@@ -1,0 +1,46 @@
+{% extends 'account/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <br /><br />
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome {{ request.user.username }}</div>
+                <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-list-alt"></span> Log list</a></li>
+                </ul>
+                    
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <table class="table">    
+                        {% if question_list %}
+                            <thead>
+                                <tr>
+                                <th>Current logs</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                </tr>
+                            </thead>
+                        {% else %}
+                            <tr>
+                                <td>No logs are currently available</td>
+                            </tr>
+                        {% endif %}
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+     {% else %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Welcome! Please register/login to get started.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
