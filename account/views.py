@@ -14,7 +14,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.core import mail
 
-# view for homepage - index of questions & results
+# view for homepage - index
 class MainView(generic.ListView):
     template_name = 'account/main.html'
     context_object_name = 'log_list'

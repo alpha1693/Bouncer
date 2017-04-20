@@ -1,3 +1,5 @@
 Bouncer/*.pyc
 *.txt
+*.pyc
+*.log
 Bouncer/migrations/
