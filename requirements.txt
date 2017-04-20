@@ -1,3 +1,5 @@
+#Bouncer's pip package requirements
+
 coverage>=4.3.4
 Django>=1.10.6
 mod-wsgi>=4.5.15
