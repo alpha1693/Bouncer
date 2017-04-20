@@ -26,6 +26,9 @@ def forgot_password(request):
             #See if we have that user in the db
             user = User.objects.filter(username = username, email = email)
             if user:
+                email_body = 'Hello ' + username + ", please click this <a href='/reset/"+ username + "'>link</a> to reset your password"
+                print("\n\n\n")
+                send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
                 return HttpResponse("Please check your email to reset your password.")
             
             else:
@@ -56,7 +59,7 @@ def register(request):
             user.save()
             # Update our variable to tell the template registration was successful.
             registered = True
-            email_body = 'Hello ' + username + ", click this link to verify your account"
+            email_body = 'Hello ' + username + ", click this <a href='/verify/"+ email + "'>/a> to verify your account"
             print("\n\n\n")
             send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
             return HttpResponse("Please check your email for a verification link for your account.")
