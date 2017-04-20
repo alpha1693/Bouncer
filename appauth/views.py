@@ -29,7 +29,7 @@ def forgot_password(request):
             if user:
                 #START FOR DEVELOPMENT USE ONLY
                 subject = 'Verify Email'
-                email_body = 'Hello ' + username + ", please click this <a href='/reset/"+ username + "'>link</a> to reset your password"
+                email_body = 'Hello ' + username + ", please click this <a href='http://127.0.0.1:8000/reset/"+ username + "'>link</a> to reset your password"
                 email_from = 'reset@bouncer.com'
 
                 with mail.get_connection() as connection:
@@ -72,7 +72,7 @@ def register(request):
             registered = True
             #START FOR DEVELOPMENT USE ONLY
             subject = 'Verify Email'
-            email_body = 'Hello ' + username + ", click this <a href='/verify/"+ email + "'>/a> to verify your account"
+            email_body = 'Hello ' + username + ", click this <a href='http://127.0.0.1:8000/verify/"+ email + "'>link</a> to verify your account"
             email_from = 'verify@bouncer.com'
                 
             with mail.get_connection() as connection:
@@ -149,8 +149,6 @@ def updateSettings(request):
         updatedEmail = request.POST['email']
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        if first_name == "" or last_name == "":
-            return HttpResponse("Please enter both a first and last name")
 	
     try:
         validate_email(updatedEmail)
@@ -161,7 +159,18 @@ def updateSettings(request):
         request.user.last_name = last_name
         request.user.email = updatedEmail
         request.user.save()
-	
+         #START FOR DEVELOPMENT USE ONLY
+        subject = 'Verify Email'
+        email_body = 'Hello, please click this <a href="http://127.0.0.1:8000/verify/'+ updatedEmail + '">link</a> to verify your account'
+        email_from = 'verify@bouncer.com'
+                
+        with mail.get_connection() as connection:
+            mail.EmailMessage(
+                subject, email_body, email_from, [updatedEmail],
+                connection=connection,
+            ).send()
+        #END FOR DEVELOPMENT USE ONLY
+
     return HttpResponseRedirect(reverse('appauth:settings'))    
 
 @login_required
