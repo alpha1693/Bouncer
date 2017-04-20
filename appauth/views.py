@@ -1,5 +1,5 @@
 import datetime
-
+from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -23,9 +23,15 @@ def forgot_password(request):
         username = request.POST['username']
         email = request.POST['email']
         if form.is_valid():
-            print('form is good')
+            #See if we have that user in the db
             user = User.objects.filter(username = username, email = email)
             if user:
+                #START FOR DEVELOPMENT USE ONLY
+                email_body = 'Hello ' + username + ", please click this <a href='/reset/"+ username + "'>link</a> to reset your password"
+                print("\n\n\n")
+                send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
+                #END FOR DEVELOPMENT USE ONLY
+
                 return HttpResponse("Please check your email to reset your password.")
             
             else:
@@ -43,7 +49,8 @@ def register(request):
     # If it's a HTTP POST, we'll process the form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
-
+        username = request.POST['username']
+        email = request.POST['email']
         user_form = UserForm(data=request.POST)
         # If the form is valid...
         if user_form.is_valid():
@@ -55,11 +62,30 @@ def register(request):
             user.save()
             # Update our variable to tell the template registration was successful.
             registered = True
+            #START FOR DEVELOPMENT USE ONLY
+            email_body = 'Hello ' + username + ", click this <a href='/verify/"+ email + "'>/a> to verify your account"
+            print("\n\n\n")
+            send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
+            #END FOR DEVELOPMENT USE ONLY
+
             return HttpResponse("Please check your email for a verification link for your account.")
 
 
         else:
-            return render(request, 'register.html', {'error': 'Registration credentials are not valid. Please try again.' , 'user_form': user_form, 'registered': registered})
+            #See if we have that username or email in the db
+            user_username = User.objects.filter(username = username)
+            user_email = User.objects.filter(email = email)
+
+            if user_username & user_email:
+                error = "That account already exists."
+            elif user_username:
+                error = "That username is already taken."
+            elif user_email:
+                error = "That email is already in use."
+            else :
+                error = 'Registration credentials are not valid. Please try again.'
+
+            return render(request, 'register.html', {'error': error , 'user_form': user_form, 'registered': registered})
 
 # Not a HTTP POST, so we render our form using our ModelForm instance.
 # These forms will be blank, ready for user input.
