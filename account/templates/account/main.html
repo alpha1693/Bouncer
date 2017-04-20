@@ -43,6 +43,9 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome {{ request.user.username }}</div>
+                {% if error %}
+                    <p> {{error}} </p>
+                {% endif %}
                 <div class="panel-body">
                 <ul class="nav nav-tabs">
                     <li id="tab1" class="active"><a data-toggle="tab" href="#loglist"><span class="glyphicon glyphicon-list-alt"></span> Log list</a></li>

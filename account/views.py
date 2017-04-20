@@ -40,7 +40,7 @@ class MainView(generic.ListView):
 		        parsed_logs.append(parsed_log)
 		# Bulk insert into database
 		ParsedLog.objects.bulk_create(parsed_logs)
-		return HttpResponseRedirect(reverse('account:main'))
+		return render(request, 'account/main.html', {'error': "Upload Successful"})
 
 	def get_queryset(self):
 		return ParsedLog.objects.all().order_by('-pub_date')
