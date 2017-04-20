@@ -1,5 +1,7 @@
 Bouncer/*.pyc
+account/*.pyc
+appauth/*.pyc
 *.txt
-*.pyc
-*.log
 Bouncer/migrations/
+account/migrations/
+appauth/migrations/

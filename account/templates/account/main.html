@@ -1,6 +1,43 @@
 {% extends 'account/base.html' %}
 
 {% block content %}
+<head>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src='/static/js/jquery.fileupload.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        
+        $('#tab1').click(function(e){
+            $('#tab1').attr("class", "active")
+            $('#tab2').attr("class", "");
+            $("#loglist").toggle("active ''");
+            $("#uploadfile").toggle("''  active");
+        });
+        $('#tab2').click(function(e){
+            $('#tab2').attr("class", "active")
+            $('#tab1').attr("class", "");
+            $("#loglist").toggle("''  active");
+            $("#uploadfile").toggle("active ''");
+        });
+        
+    });
+        $(function () {
+            'use strict';
+            // Change this to the location of your server-side upload handler:
+            var url = window.location.hostname === 'account/#upload';
+            $('#fileupload').fileupload({
+                url: url,
+                dataType: 'txt',
+                done: function (e, data) {
+                    $.each(data.result.files, function (index, file) {
+                        $('<p/>').text(file.name).appendTo('#files');
+                    });
+                },
+            }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        });
+    </script>
+</head>
     {% if user.is_authenticated %}
         <br /><br />
         <div class="col-md-12">
@@ -8,11 +45,12 @@
                 <div class="panel-heading">Welcome {{ request.user.username }}</div>
                 <div class="panel-body">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home"><span class="glyphicon glyphicon-list-alt"></span> Log list</a></li>
+                    <li id="tab1" class="active"><a data-toggle="tab" href="#loglist"><span class="glyphicon glyphicon-list-alt"></span> Log list</a></li>
+                    <li id="tab2" class=""><a data-toggle="tab" href="#uploadfile"><span class="glyphicon glyphicon-open glyphicon-list-alt"></span> Upload</a></li>
                 </ul>
                     
                 <div class="tab-content">
-                    <div id="home" class="tab-pane active">
+                    <div id="loglist" class="tab-pane active">
                         <table class="table">    
                         {% if question_list %}
                             <thead>
@@ -30,6 +68,19 @@
                         {% endif %}
                         </table>
                     </div>
+                    <div id="uploadfile" class="tab-pane container-fluid">
+                        <form id="fileupload" action="/account/#uploadfile" method="POST" enctype="multipart/form-data">
+                            <span class="btn btn-success fileinput-button">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Select files...</span>
+                                <!-- The file input field used as target for the file upload widget -->
+                                <input id="fileupload" type="file" name="files[]" multiple>
+                            </span>
+                            <br>
+                            <!-- The container for the uploaded files -->
+                            <div id="files" class="files"></div>
+                        </form>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -44,3 +95,4 @@
         </div>
     {% endif %}
 {% endblock %}
+
