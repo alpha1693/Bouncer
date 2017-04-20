@@ -1,5 +1,4 @@
 import datetime
-from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -14,6 +13,8 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from django.core import mail
+
 
 def forgot_password(request):
     # If it's a HTTP POST, we'll process the form data.
@@ -27,9 +28,16 @@ def forgot_password(request):
             user = User.objects.filter(username = username, email = email)
             if user:
                 #START FOR DEVELOPMENT USE ONLY
+                subject = 'Verify Email'
                 email_body = 'Hello ' + username + ", please click this <a href='/reset/"+ username + "'>link</a> to reset your password"
-                print("\n\n\n")
-                send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
+                email_from = 'reset@bouncer.com'
+
+                with mail.get_connection() as connection:
+                    mail.EmailMessage(
+                        subject, email_body, email_from, [email],
+                        connection=connection,
+                    ).send()
+
                 #END FOR DEVELOPMENT USE ONLY
 
                 return HttpResponse("Please check your email to reset your password.")
@@ -63,9 +71,15 @@ def register(request):
             # Update our variable to tell the template registration was successful.
             registered = True
             #START FOR DEVELOPMENT USE ONLY
+            subject = 'Verify Email'
             email_body = 'Hello ' + username + ", click this <a href='/verify/"+ email + "'>/a> to verify your account"
-            print("\n\n\n")
-            send_mail('Verify Email', email_body, 'verify@bouncer.com', [email], fail_silently=False)
+            email_from = 'verify@bouncer.com'
+                
+            with mail.get_connection() as connection:
+                    mail.EmailMessage(
+                        subject, email_body, email_from, [email],
+                        connection=connection,
+                    ).send()
             #END FOR DEVELOPMENT USE ONLY
 
             return HttpResponse("Please check your email for a verification link for your account.")
@@ -108,7 +122,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 return HttpResponseRedirect(reverse('account:main'))
-            return HttpResponse("Your account is disabled.")
+            return render(request, 'login.html', {'error': "Your account is disabled."})
         else:
             return render(request, 'login.html', {'error': 'Invalid login details. Please try again.'})
 

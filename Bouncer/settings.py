@@ -131,6 +131,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 #STATIC_URL = '/Bouncer/static/'
 
 
-EMAIL_HOST = 'http://127.0.0.1'
-EMAIL_PORT = 1025
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR + '/tmp/emails/' # change this to a proper location

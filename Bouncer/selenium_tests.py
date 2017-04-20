@@ -1,4 +1,5 @@
 import unittest
+import sys
 from django.test import Client
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -23,7 +24,6 @@ class current_test_case(unittest.TestCase):
 				binary = FirefoxBinary(r'../selenium_browser_drivers/geckodriver-v0.15.0-win64/geckodriver.exe')
 
 			self.driver = eval(driver_instance)
-
 
 
 	def tearDown(self):
