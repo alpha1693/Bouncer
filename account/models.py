@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 
 # Models
 
-@python_2_unicode_compatible
 # class to store Apache log files using Common Log Format
 class ParsedLog(models.Model):
 	owner = models.ForeignKey(User, null=True)

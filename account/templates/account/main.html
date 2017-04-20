@@ -69,17 +69,19 @@
                         </table>
                     </div>
                     <div id="uploadfile" class="tab-pane container-fluid">
-                        <form id="fileupload" action="/account/#uploadfile" method="POST" enctype="multipart/form-data">
-                            <span class="btn btn-success fileinput-button">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                <span>Select files...</span>
-                                <!-- The file input field used as target for the file upload widget -->
-                                <input id="fileupload" type="file" name="files[]" multiple>
-                            </span>
-                            <br>
-                            <!-- The container for the uploaded files -->
-                            <div id="files" class="files"></div>
-                        </form>
+                        <form method="post" action="/account/#uploadfile" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" name="myfile" id="myfile">
+                            <button type="submit" id="submit">Upload</button>
+                          </form>
+
+                          {% if uploaded_file_url %}
+                            <p id="post_msg">File {{ uploaded_file_url }} uploaded</a></p>
+                          {% elif error %}
+                            <p id="post_msg">{{error}}<p>
+                          {% endif %}
+
+                         
                     </div>
                 </div>
                 </div>

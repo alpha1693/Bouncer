@@ -5,3 +5,6 @@ appauth/*.pyc
 Bouncer/migrations/
 account/migrations/
 appauth/migrations/
+Bouncer/migrations/*.pyc
+account/migrations/*.pyc
+appauth/migrations/*.pyc
