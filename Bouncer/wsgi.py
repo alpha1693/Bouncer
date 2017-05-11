@@ -7,9 +7,11 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
-import os, sys
+import os
+import sys
 sys.path.append('C:/Users/Work/Bitnami Django Stack projects/Bouncer')
-os.environ.setdefault("PYTHON_EGG_CACHE", "C:/Users/Work/Bitnami Django Stack projects/Bouncer/egg_cache")
+os.environ.setdefault(
+    "PYTHON_EGG_CACHE", "C:/Users/Work/Bitnami Django Stack projects/Bouncer/egg_cache")
 
 
 from django.core.wsgi import get_wsgi_application

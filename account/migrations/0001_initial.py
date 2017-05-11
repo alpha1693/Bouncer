@@ -19,7 +19,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='ParsedLog',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('pub_date', models.DateTimeField(auto_now_add=True)),
                 ('ip_address', models.CharField(max_length=39)),
                 ('rfc_id', models.CharField(max_length=39)),
@@ -28,7 +29,8 @@ class Migration(migrations.Migration):
                 ('request_line', models.TextField()),
                 ('http_status', models.CharField(max_length=3)),
                 ('num_bytes', models.IntegerField(blank=True)),
-                ('owner', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('owner', models.ForeignKey(
+                    null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

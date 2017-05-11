@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 
-
 import os
 import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -78,28 +77,27 @@ WSGI_APPLICATION = 'Bouncer.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 if sys.platform == 'linux2':
-	DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	        'NAME': 'djangostack',
-	        'HOST': 'localhost',
-	        'PORT': '5432',
-	        'USER': 'postgres',
-	        'PASSWORD': 'postgres'
-	    }
-	}
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'djangostack',
+            'HOST': 'localhost',
+            'PORT': '5432',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres'
+        }
+    }
 else:
-	DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	        'NAME': 'djangostack',
-	        'HOST': 'localhost',
-	        'PORT': '5432',
-	        'USER': 'bitnami',
-	        'PASSWORD': ''
-	    }
-	}
-
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'djangostack',
+            'HOST': 'localhost',
+            'PORT': '5432',
+            'USER': 'bitnami',
+            'PASSWORD': ''
+        }
+    }
 
 
 # Password validation
@@ -143,4 +141,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR + '/tmp/emails/' # change this to a proper location
+EMAIL_FILE_PATH = BASE_DIR + '/tmp/emails/'
